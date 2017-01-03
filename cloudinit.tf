@@ -5,7 +5,6 @@ data "template_file" "init-script" {
   vars {
     userdata_index = "${base64encode(file("${path.module}/files/index.html"))}"
     frontent_nginx_conf = "${base64encode(file("${path.module}/files/frontent.conf"))}"
-    backend_nginx_conf = "${base64encode(file("${path.module}/files/backend.conf"))}"
     backend_tmp_app = "${base64encode(file("${path.module}/files/backend/app.js"))}"
     backend_tmp_app_package = "${base64encode(file("${path.module}/files/backend/package.json"))}"
   }
