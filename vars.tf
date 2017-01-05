@@ -7,6 +7,9 @@ variable "PATH_TO_PRIVATE_KEY" {
 variable "PATH_TO_PUBLIC_KEY" {
   default = "mykey.pub"
 }
+variable "ELB_AZS"{
+  default = ["us-east-1b","us-east-1c","us-east-1d"]
+}
 variable "AMIS" {
   type = "map"
   default = {

@@ -1,6 +1,6 @@
 resource "aws_elb" "node-elb" {
   name = "node-elb"
-  availability_zones = ["us-east-1b","us-east-1c","us-east-1d"]
+  availability_zones = "${var.ELB_AZS}"
   listener{
     instance_port = 80
     instance_protocol = "http"
