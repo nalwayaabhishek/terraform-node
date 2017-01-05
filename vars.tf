@@ -13,6 +13,9 @@ variable "ELB_AZS"{
 variable "S3_BUCKET"{
   default = "generation-test"
 }
+variable "APP"{
+  default = "test"
+}
 variable "AMIS" {
   type = "map"
   default = {
