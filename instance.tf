@@ -11,4 +11,7 @@ resource "aws_instance" "node-instance" {
   # user data
   user_data = "${data.template_cloudinit_config.cloudinit-web.rendered}"
 
+  tags {
+    Name = "${var.APP}"
+  }
 }
