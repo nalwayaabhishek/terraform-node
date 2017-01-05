@@ -10,6 +10,9 @@ variable "PATH_TO_PUBLIC_KEY" {
 variable "ELB_AZS"{
   default = ["us-east-1b","us-east-1c","us-east-1d"]
 }
+variable "S3_BUCKET"{
+  default = "generation-test"
+}
 variable "AMIS" {
   type = "map"
   default = {
