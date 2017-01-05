@@ -11,8 +11,7 @@ resource "aws_instance" "node-instance" {
   # user data
   user_data = "${data.template_cloudinit_config.cloudinit-web.rendered}"
 
-}
-
-data "template_file" "pm2_process_conf" {
-  template = "${file("${path.module}/templates/processes.tpl")}"
+  tags {
+    Name = "${var.APP}"
+  }
 }
