@@ -8,6 +8,7 @@ data "template_file" "init-script" {
     backend_tmp_app = "${base64encode(file("${path.module}/files/backend/app.js"))}"
     backend_tmp_app_package = "${base64encode(file("${path.module}/files/backend/package.json"))}"
     pm2_conf = "${base64encode(file("${path.module}/templates/processes.tpl"))}"
+    AWS_REGION = "${var.AWS_REGION}"
   }
 }
 
