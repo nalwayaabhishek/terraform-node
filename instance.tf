@@ -15,3 +15,7 @@ resource "aws_instance" "node-instance" {
     Name = "${var.APP}"
   }
 }
+
+data "template_file" "pm2_process_conf" {
+  template = "${file("${path.module}/templates/processes.tpl")}"
+}
