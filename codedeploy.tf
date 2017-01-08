@@ -11,10 +11,12 @@ resource "aws_iam_role_policy" "deployer_policy" {
         {
             "Effect": "Allow",
             "Action": [
-                "ec2:DescribeInstances",
-                "ec2:DescribeInstanceStatus",
+                "ec2:*",
                 "tag:GetTags",
-                "tag:GetResources"
+                "tag:GetResources",
+                "s3:*",
+                "iam:*",
+                "codedeploy:*"
             ],
             "Resource": "*"
         }
