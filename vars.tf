@@ -14,7 +14,7 @@ variable "S3_BUCKET"{
   default = "generation-test"
 }
 variable "APP"{
-  default = "test"
+  default = "generation"
 }
 variable "AMIS" {
   type = "map"
