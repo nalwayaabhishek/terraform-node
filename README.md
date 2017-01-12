@@ -16,3 +16,5 @@ The plan phase takes your Terraform configuration and attempts to provide you wi
 To apply the plan run `terraform apply`
 
 To ssh into the ec2 box run `ssh -i mykey deployuser@node-ip`
+
+To destroy the infrastructure created via terraform `terraform destroy`
