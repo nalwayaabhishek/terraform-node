@@ -8,7 +8,8 @@ Follow this link to install terraform -> https://www.terraform.io/intro/getting-
    - The project root contains a file named terraform.tfvars.example. Rename that file to terraform.tfvars and populate it with your AWS credentials:
       
       `$ mv terraform.tfvars.example terraform.tfvars`  
-      `$ vim terraform.tfvars`
+      `$ vim terraform.tfvars`  
+      `$ terraform apply -var-file terraform.tfvars`
 
 3. Create ssh keys in the root dir of the repo using command `ssh-keygen` 
    - either in file `mykey` or
