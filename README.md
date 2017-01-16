@@ -38,3 +38,9 @@ The plan phase takes your Terraform configuration and attempts to provide you wi
         ![alt text](img/circle-settings-interface.png)
 
 **To destroy the infrastructure created via terraform `terraform destroy`**
+
+## Circle CI Access  
+   - Login to Circle using your Github account
+   - Navigate to `Add Projects` on Circle Ci dashboard
+   - Select your organization
+   - Click on `Follow/Build Project` next to your repo
