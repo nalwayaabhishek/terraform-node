@@ -1,24 +1,42 @@
 variable "access_key" {}
 variable "secret_key" {}
-
-variable "AWS_REGION" {
+variable "region" {
   default = "us-east-1"
 }
-variable "PATH_TO_PRIVATE_KEY" {
-  default = "mykey"
-}
-variable "PATH_TO_PUBLIC_KEY" {
+variable "node_ssh_public_key" {
   default = "mykey.pub"
 }
-variable "ELB_AZS"{
-  default = ["us-east-1b","us-east-1c","us-east-1d"]
-}
-variable "S3_BUCKET"{
+
+variable "s3_bucket_name"{
   default = "generation-test"
 }
+variable "deployment_group"{
+  default = "production-group"
+}
+
 variable "APP"{
   default = "generation"
 }
+
+variable "node_nat_instance_ami"{
+  default = "ami-184dc970"
+}
+variable "node_vpc_cidr"{
+  default = "10.0.0.0/16"
+}
+variable "node_vpc_public_subnet_cidr"{
+  default = "10.0.1.0/24"
+}
+variable "node_vpc_private_subnet_cidr"{
+  default = "10.0.2.0/24"
+}
+variable "node_vpc_public_subnet_az"{
+  default = "us-east-1b"
+}
+variable "node_vpc_private_subnet_az"{
+  default = "us-east-1d"
+}
+
 variable "AMIS" {
   type = "map"
   default = {
