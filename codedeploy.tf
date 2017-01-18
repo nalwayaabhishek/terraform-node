@@ -1,5 +1,5 @@
 resource "aws_codedeploy_app" "deployer" {
-  name = "${var.APP}"
+  name = "deployer"
 }
 
 resource "aws_codedeploy_deployment_group" "deployer_group" {
