@@ -44,3 +44,6 @@ The plan phase takes your Terraform configuration and attempts to provide you wi
    - Navigate to `Add Projects` on Circle Ci dashboard
    - Select your organization
    - Click on `Follow/Build Project` next to your repo
+
+## INFRASTRUCTURE
+![alt text](img/infra.png)
