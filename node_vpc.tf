@@ -7,57 +7,62 @@
 # 2. Private Subnet. node_vpc_private_subnet
 #      a. EC2 - Web Server. node_instance
 
-
-resource "aws_vpc" "node_vpc"{
+resource "aws_vpc" "node_vpc" {
   cidr_block = "${var.node_vpc_cidr}"
-  tags{
+
+  tags {
     Name = "${var.APP}_vpc"
   }
 }
 
 # Internet Gateway for Public Subnet
-resource "aws_internet_gateway" "node_igw"{
+resource "aws_internet_gateway" "node_igw" {
   vpc_id = "${aws_vpc.node_vpc.id}"
-  tags{
+
+  tags {
     Name = "${var.APP}_igw"
   }
 }
 
 # Private and Public subnets for VPC
 
-resource "aws_subnet" "node_vpc_public_subnet"{
-  vpc_id = "${aws_vpc.node_vpc.id}"
+resource "aws_subnet" "node_vpc_public_subnet" {
+  vpc_id            = "${aws_vpc.node_vpc.id}"
   availability_zone = "${var.node_vpc_public_subnet_az}"
-  cidr_block = "${var.node_vpc_public_subnet_cidr}"
-  tags{
+  cidr_block        = "${var.node_vpc_public_subnet_cidr}"
+
+  tags {
     Name = "${var.APP}_vpc_public_subnet"
   }
 }
 
-resource "aws_subnet" "node_vpc_private_subnet"{
-  vpc_id = "${aws_vpc.node_vpc.id}"
+resource "aws_subnet" "node_vpc_private_subnet" {
+  vpc_id            = "${aws_vpc.node_vpc.id}"
   availability_zone = "${var.node_vpc_private_subnet_az}"
-  cidr_block = "${var.node_vpc_private_subnet_cidr}"
-  tags{
+  cidr_block        = "${var.node_vpc_private_subnet_cidr}"
+
+  tags {
     Name = "${var.APP}_vpc_private_subnet"
   }
 }
-  
+
 # Routing tables for public subnet. Public subnet can connect to internet gateway
 
 resource "aws_route_table" "node_vpc_public_routes" {
   vpc_id = "${aws_vpc.node_vpc.id}"
-  route{
-    cidr_block = "0.0.0.0/0"                                       
+
+  route {
+    cidr_block = "0.0.0.0/0"
     gateway_id = "${aws_internet_gateway.node_igw.id}"
   }
-  tags{
+
+  tags {
     Name = "${var.APP}_public_subnet_routes"
   }
 }
 
-resource "aws_route_table_association" "node_vpc_public_routes_attachment"{
-  subnet_id = "${aws_subnet.node_vpc_public_subnet.id}"
+resource "aws_route_table_association" "node_vpc_public_routes_attachment" {
+  subnet_id      = "${aws_subnet.node_vpc_public_subnet.id}"
   route_table_id = "${aws_route_table.node_vpc_public_routes.id}"
 }
 
@@ -65,16 +70,18 @@ resource "aws_route_table_association" "node_vpc_public_routes_attachment"{
 
 resource "aws_route_table" "node_vpc_private_routes" {
   vpc_id = "${aws_vpc.node_vpc.id}"
+
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block  = "0.0.0.0/0"
     instance_id = "${aws_instance.node_nat_instance.id}"
   }
-  tags{
+
+  tags {
     Name = "${var.APP}_private_subnet_routes"
   }
 }
 
-resource "aws_route_table_association" "node_vpc_private_routes_attachment"{
-  subnet_id = "${aws_subnet.node_vpc_private_subnet.id}"
+resource "aws_route_table_association" "node_vpc_private_routes_attachment" {
+  subnet_id      = "${aws_subnet.node_vpc_private_subnet.id}"
   route_table_id = "${aws_route_table.node_vpc_private_routes.id}"
 }
