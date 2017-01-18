@@ -1,51 +1,11 @@
 resource "aws_codedeploy_app" "deployer" {
   name = "${var.APP}"
 }
-resource "aws_iam_role_policy" "deployer_policy" {
-    name = "deployer_policy"
-    role = "${aws_iam_role.deployer_role.id}"
-    policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ec2:DescribeInstances",
-                "ec2:DescribeInstanceStatus",
-                "tag:GetTags",
-                "tag:GetResources"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-EOF
-}
-resource "aws_iam_role" "deployer_role" {
-    name = "deployer_role"
-    assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "",
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-          "codedeploy.amazonaws.com"
-        ]
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
-}
-resource "aws_codedeploy_deployment_group" "production-group" {
+
+resource "aws_codedeploy_deployment_group" "deployer_group" {
     app_name = "${aws_codedeploy_app.deployer.name}"
-    deployment_group_name = "production-group"
-    service_role_arn = "${aws_iam_role.deployer_role.arn}"
+    deployment_group_name = "${var.deployment_group}"
+    service_role_arn = "${aws_iam_role.codedeploy_ec2_tag_access_role.arn}"
 
     ec2_tag_filter {
         key = "Name"

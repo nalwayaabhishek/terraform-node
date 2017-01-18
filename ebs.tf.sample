@@ -1,0 +1,13 @@
+resource "aws_ebs_volume" "node_shared_volume"{
+  availability_zone = "${aws_instance.node_instance.availability_zone}"
+  size = 4 
+  tags {
+    Name = "Shared drive"
+  }
+}
+
+resource "aws_volume_attachment" "node_shared_volume" {
+  device_name = "/dev/sdh"
+  volume_id = "${aws_ebs_volume.node_shared_volume.id}"
+  instance_id = "${aws_instance.node_instance.id}"
+}
