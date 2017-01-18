@@ -55,7 +55,7 @@ Follow this link to install terraform -> https://www.terraform.io/intro/getting-
 + `node_vpc_private_subnet_az` : Availability zone for private subnet, specifies in [vars.tf](vars.tf).
 + `node_public_subnet`  
    Public subnet with connection to the internet. It has following components :  
-     - `node_igw([Internet Gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Internet_Gateway.html))` : Provides internet connection.
+     - `node_igw`( [Internet Gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Internet_Gateway.html) ) : Provides internet connection.
      - `node_elb` : [Elastic Load Balancer](https://aws.amazon.com/elasticloadbalancing/) over EC2 instances launched in private subnet.
      - `node_nat_instance` : EC2 instance launched with NAT AMI. It's required for providing internet connection to EC2 instances in private subnet which needs to install packages. 
      - `node_bastion_instance`(Optional) : Its an optional EC2 instance to be used as a [bastion host](https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-bastion-host/),which can be used to ssh into EC2 instances in private subnet for debugging purposes. 
