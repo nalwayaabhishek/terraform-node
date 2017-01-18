@@ -11,15 +11,15 @@ variable "node_ssh_public_key" {
 }
 
 variable "s3_bucket_name" {
-  default = "generation-test"
+  default = "node_test"
 }
 
 variable "deployment_group" {
-  default = "production-group"
+  default = "deployment_group"
 }
 
 variable "APP" {
-  default = "generation"
+  default = "node_app"
 }
 
 variable "node_nat_instance_ami" {
