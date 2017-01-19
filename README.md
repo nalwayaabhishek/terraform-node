@@ -20,15 +20,18 @@ Follow this link to install terraform -> https://www.terraform.io/intro/getting-
 
 2. `terraform apply`  
    Executes your terraform scripts(files ending with extension .tf) and incrementaly builds your infrastructure.  
-   > Note : Some resources are optional, to implement those resources just remove `.sample` from their extension. Similarly add `.sample` to scripts you don't want to implement.
-   `terraform apply` will output 4 values:  
-   - EC2 instance public ip
-      Use this ip to ssh into the box in order to check logs,config etc  
-      `ssh -i mykey deployuser@node-ip`
-   - ELB DNS
+   > Note : Some resources are optional, to implement those resources just remove `.sample` from their extension. Similarly add `.sample` to scripts you don't want to implement.  
+   
+   `terraform apply` will output 5 values:  
+   - **NAT/Bastion host public ip & Node instance private ip**  
+      Use this ip to ssh into the bastion host and then into EC2 box in order to check logs,config etc  
+      `ssh -i mykey ubuntu@nat_bastion_public_ip`  
+      `ssh -i mykey ubuntu@node_instance_private_ip`  
+      `sudo su deployuser`  
+   - **ELB DNS**  
       Use this DNS to navigate to the sample app.  
       _Note - ELB takes few minutes to set up as the health check interval is set to be 30 sec. You can change this value in elb.tf file_
-   - Circle iam user access key & Circle iam user secret key  
+   - **Circle iam user access key & Circle iam user secret key**    
      Terraform scripts are creating a circle iam user which has full access to S3 & Codedeploy resources.  
      Copy these keys to your circle project settings so as to set up automatic deployments with every circle build
         ![alt text](img/circle-settings-interface.png)
@@ -53,7 +56,7 @@ Follow this link to install terraform -> https://www.terraform.io/intro/getting-
      - `node_igw`( [Internet Gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Internet_Gateway.html) ) : Provides internet connection.
      - `node_elb` : [Elastic Load Balancer](https://aws.amazon.com/elasticloadbalancing/) over EC2 instances launched in private subnet.
      - `node_nat_instance` : EC2 instance launched with NAT AMI. It's required for providing internet connection to EC2 instances in private subnet which needs to install packages. 
-     - `node_bastion_instance`(Optional) : Its an optional EC2 instance to be used as a [bastion host](https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-bastion-host/),which can be used to ssh into EC2 instances in private subnet for debugging purposes. 
+     - `node_bastion_instance` : NAT isntance also acts as a [bastion host](https://aws.amazon.com/blogs/security/how-to-record-ssh-sessions-established-through-a-bastion-host/),which can be used to ssh into EC2 instances in private subnet for debugging purposes. 
 + `node_private_subnet`  
    Private subnet with no direct connection to the internet. It has following components : 
    - `node_instance` : EC2 instance on which application will be deployed.

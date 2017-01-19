@@ -11,7 +11,7 @@ variable "node_ssh_public_key" {
 }
 
 variable "s3_bucket_name" {
-  default = "node_test"
+  default = "node_test_random123"
 }
 
 variable "deployment_group" {
@@ -22,7 +22,7 @@ variable "APP" {
   default = "node_app"
 }
 
-variable "node_nat_instance_ami" {
+variable "node_nat_bastion_instance_ami" {
   default = "ami-184dc970"
 }
 
