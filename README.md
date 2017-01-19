@@ -4,7 +4,6 @@ Follow this link to install terraform -> https://www.terraform.io/intro/getting-
 ##Configuration
 1. [Create IAM user(s)](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console) with policy `AdministratorAccess` from AWS IAM console of root user. Save the access keys of the user which will be used to create the infra via terraform.
 2. Configure aws keys:
-   - Install [aws cli](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) and configure by calling `aws configure`
    - The project root contains a file named terraform.tfvars.example. Rename that file to terraform.tfvars and populate it with your AWS credentials:
       
       `$ mv terraform.tfvars.example terraform.tfvars`  
@@ -12,12 +11,8 @@ Follow this link to install terraform -> https://www.terraform.io/intro/getting-
 
 3. Create ssh keys in the root dir of the repo using command `ssh-keygen` 
    - either in file `mykey` or
-   - update the key name in vars.tf if created ssh keys in different file
+   - update the public key file name in vars.tf if created ssh keys in different file
    ![alt text](img/key-overwrite.png)
-4. Replace key under `ssh-authorized-keys` in templates/init.cfg with your public key generated in file mykey.pub
-
-      ![alt text](img/ssh-key-overwrite.png)
-   
 
 ## Usage
 1. `terraform plan`  
