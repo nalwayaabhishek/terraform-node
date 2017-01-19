@@ -69,13 +69,7 @@ resource "aws_security_group" "node_nat_bastion_security_group" {
   }
 }
 
-# Elastic IP for NAT  
-resource "aws_eip" "node_nat_bastion_eip" {
-  instance = "${aws_instance.node_nat_bastion_instance.id}"
-  vpc      = true
-}
-
 # outputting NAT/Bastion public IP for ssh-ing into node_instance via bastion host
 output "nat_bastion_host_ip" {
-  value = "${aws_eip.node_nat_bastion_eip.public_ip}"
+  value = "${aws_instance.node_nat_bastion_instance.public_ip}"
 }
