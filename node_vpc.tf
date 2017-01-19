@@ -73,7 +73,7 @@ resource "aws_route_table" "node_vpc_private_routes" {
 
   route {
     cidr_block  = "0.0.0.0/0"
-    instance_id = "${aws_instance.node_nat_instance.id}"
+    instance_id = "${aws_instance.node_nat_bastion_instance.id}"
   }
 
   tags {

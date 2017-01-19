@@ -53,3 +53,6 @@ resource "aws_security_group" "node_security_group" {
     Name = "${var.APP}_security_group"
   }
 }
+output "node_instance_private_ip"{
+  value = "${aws_instance.node_instance.private_ip}"
+}
