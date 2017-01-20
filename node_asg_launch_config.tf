@@ -1,16 +1,17 @@
 # Main WebServer[private subnet]
 
-resource "aws_instance" "node_instance" {
-  ami                    = "${lookup(var.AMIS, var.region)}"
-  instance_type          = "t2.micro"
-  iam_instance_profile   = "${aws_iam_instance_profile.ec2_s3_read_access.name}"
-  key_name               = "${aws_key_pair.node_ssh_key.key_name}"
-  vpc_security_group_ids = ["${aws_security_group.node_security_group.id}"]
-  subnet_id              = "${aws_subnet.node_vpc_private_subnet.id}"
-  user_data              = "${data.template_cloudinit_config.node_bootstrap.rendered}"
+resource "aws_launch_configuration" "node_launch_config" {
+  name_prefix          = "${var.APP}_launch_config_"
+  image_id             = "${lookup(var.AMIS, var.region)}"
+  instance_type        = "t2.micro"
+  security_groups      = ["${aws_security_group.node_security_group.id}"]
+  iam_instance_profile = "${aws_iam_instance_profile.ec2_s3_read_access.name}"
+  key_name             = "${aws_key_pair.node_ssh_key.key_name}"
+  enable_monitoring    = false
+  user_data            = "${data.template_cloudinit_config.node_bootstrap.rendered}"
 
-  tags {
-    Name = "${var.APP}"
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
@@ -52,7 +53,4 @@ resource "aws_security_group" "node_security_group" {
   tags {
     Name = "${var.APP}_security_group"
   }
-}
-output "node_instance_private_ip"{
-  value = "${aws_instance.node_instance.private_ip}"
 }

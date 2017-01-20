@@ -11,14 +11,14 @@ resource "aws_elb" "node_elb" {
   }
 
   health_check {
-    healthy_threshold   = 2
+    healthy_threshold   = 3
     unhealthy_threshold = 2
     timeout             = 3
     target              = "HTTP:80/"
-    interval            = 30
+    interval            = 10
   }
 
-  instances = ["${aws_instance.node_instance.id}"]
+  #instances = ["${aws_instance.node_instance.id}"]
 
   tags {
     Name = "${var.APP}_elb"
